@@ -133,14 +133,24 @@ class M_a():
     def __repr__(self):
         return f"(a,r,p,k)={(self.a, self.r, self.p, self.k)}={str(self)}={self.complex()}"
 
-    def latex(self):
-        out=f"e^{{2\\pi\\frac{{{self.k}}}{{{self.p}+{self.a}}}{{i}}}}"
+    def latex(self, use_negative=True):
+        k=self.k
+        if use_negative:
+            n=self.a+self.p
+            if k*2 > n:
+                k=(k-n)
+        out=f"e^{{2\\pi\\frac{{{k}}}{{{self.p}+{self.a}}}{{i}}}}"
         if not self.r == 1:
             out =f"{self.r}{out}"
         return f"${out}$"
 
-    def latex_symbolic(self):
-        out=f"M_{{{self.a}}}({self.p})^{{{self.k}}}"
+    def latex_symbolic(self, use_negative=True):
+        k=self.k
+        if use_negative:
+            n=self.a+self.p
+            if k*2 > n:
+                k=(k-n)
+        out=f"M_{{{self.a}}}({self.p})^{{{k}}}"
         if not self.r == 1:
             out =f"{self.r}{out}"
         return f"${out}$"
